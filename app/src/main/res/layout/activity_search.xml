@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EBE9E1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        android:elevation="2dp">
+
+        <ImageButton
+            android:id="@+id/btnSearchBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="#1E293B"
+            android:contentDescription="Back" />
+
+        <EditText
+            android:id="@+id/etSearchInput"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:drawable/editbox_background"
+            android:hint="Search items, locations..."
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="#1E293B"
+            android:textColorHint="#94A3B8"
+            android:textSize="15sp"
+            android:inputType="text"
+            android:imeOptions="actionSearch" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvSearchResults"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="14dp"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/tvSearchEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="No items found.\nTry a different keyword."
+        android:textColor="#8E8A82"
+        android:textSize="16sp"
+        android:lineSpacingMultiplier="1.4"
+        android:visibility="gone" />
+
+</LinearLayout>

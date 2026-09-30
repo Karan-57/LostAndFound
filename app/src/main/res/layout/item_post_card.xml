@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_card"
+    android:padding="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_location_pin"
+            app:tint="#E43D12"
+            android:contentDescription="Location" />
+
+        <TextView
+            android:id="@+id/tvCardLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="6dp"
+            android:text="Location"
+            android:textColor="#1F1C18"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_calendar_small"
+            app:tint="#EFB11D"
+            android:contentDescription="Date" />
+
+        <TextView
+            android:id="@+id/tvCardDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="Date"
+            android:textColor="#8E8A82"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivCardImage"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/campus_bg"
+        android:contentDescription="Item Image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <TextView
+            android:id="@+id/tvCardDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Item description"
+            android:textColor="#334155"
+            android:textSize="14sp"
+            android:lineSpacingExtra="3dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tvCardUser"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="By Student"
+                android:textColor="#64748B"
+                android:textSize="12sp"
+                android:textStyle="italic" />
+
+            <ImageButton
+                android:id="@+id/btnCardResolve"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/bg_circle_button_green"
+                android:src="@drawable/ic_check"
+                android:contentDescription="Mark Resolved"
+                android:scaleType="centerInside"
+                android:padding="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/btnCardCall"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/bg_circle_button"
+                android:src="@android:drawable/ic_menu_call"
+                android:contentDescription="Call"
+                android:scaleType="centerInside"
+                android:padding="8dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

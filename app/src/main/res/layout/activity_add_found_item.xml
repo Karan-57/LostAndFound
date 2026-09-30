@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EBE9E1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="#EBE9E1">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="#1E293B"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Report Found Item"
+            android:textColor="#1E293B"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Item Photo"
+                android:textColor="#1F1C18"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <FrameLayout
+                android:id="@+id/layoutImagePreview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/bg_image_upload_border">
+
+                <ImageView
+                    android:id="@+id/ivFoundImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:id="@+id/layoutPhotoPlaceholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_camera"
+                        app:tint="#E43D12" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Tap below to add photo"
+                        android:textColor="#E43D12"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp">
+
+                <Button
+                    android:id="@+id/btnCamera"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:backgroundTint="#EFB11D"
+                    android:textColor="#1F1C18"
+                    android:text="Camera" />
+
+                <Button
+                    android:id="@+id/btnGallery"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:backgroundTint="#EFB11D"
+                    android:textColor="#1F1C18"
+                    android:text="Gallery" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Name (Optional)"
+                android:textColor="#1F1C18"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etFoundUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="e.g. Priya Patel"
+                android:background="@drawable/bg_input_field"
+                android:padding="12dp"
+                android:textColor="#1F1C18"
+                android:textColorHint="#8E8A82"
+                android:textSize="15sp"
+                android:inputType="textPersonName|textCapWords"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Email (Optional)"
+                android:textColor="#1F1C18"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etFoundUserEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="e.g. priya@campus.edu"
+                android:background="@drawable/bg_input_field"
+                android:padding="12dp"
+                android:textColor="#1F1C18"
+                android:textColorHint="#8E8A82"
+                android:textSize="15sp"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description *"
+                android:textColor="#1F1C18"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etFoundDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="3"
+                android:gravity="top|start"
+                android:hint="Describe the item (e.g. Black Lenovo wireless mouse with USB receiver)"
+                android:background="@drawable/bg_input_field"
+                android:padding="12dp"
+                android:textColor="#1F1C18"
+                android:textColorHint="#8E8A82"
+                android:textSize="15sp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location Found *"
+                android:textColor="#1F1C18"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etFoundLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Where was it found? (e.g. Central Library, 2nd Floor)"
+                android:background="@drawable/bg_input_field"
+                android:padding="12dp"
+                android:textColor="#1F1C18"
+                android:textColorHint="#8E8A82"
+                android:textSize="15sp"
+                android:inputType="textCapSentences"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date Found *"
+                android:textColor="#1F1C18"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etFoundDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select date"
+                android:focusable="false"
+                android:clickable="true"
+                android:background="@drawable/bg_input_field"
+                android:padding="12dp"
+                android:textColor="#1F1C18"
+                android:textColorHint="#8E8A82"
+                android:textSize="15sp"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contact Phone Number *"
+                android:textColor="#1F1C18"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etFoundPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Your phone number (e.g. 9876543210)"
+                android:background="@drawable/bg_input_field"
+                android:padding="12dp"
+                android:textColor="#1F1C18"
+                android:textColorHint="#8E8A82"
+                android:textSize="15sp"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:layout_marginBottom="24dp" />
+
+            <Button
+                android:id="@+id/btnSubmitFound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:backgroundTint="#E43D12"
+                android:text="Post Found Item"
+                android:textSize="16sp"
+                android:layout_marginBottom="16dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EBE9E1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageButton
+                android:id="@+id/btnMenu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_more_vert"
+                app:tint="#1E293B"
+                android:contentDescription="Menu" />
+
+            <TextView
+                android:id="@+id/tvFoundTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Campus Found"
+                android:textColor="#1E293B"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnSearch"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_search"
+                app:tint="#1E293B"
+                android:contentDescription="Search" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:id="@+id/tabFound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/tvTabFound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Found"
+                    android:textColor="#1E293B"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/indicatorFound"
+                    android:layout_width="32dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_tab_indicator"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tabLost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/tvTabLost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lost"
+                    android:textColor="#8E8A82"
+                    android:textSize="18sp" />
+
+                <View
+                    android:id="@+id/indicatorLost"
+                    android:layout_width="32dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_tab_indicator"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lvFoundItems"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="14dp"
+            android:clipToPadding="false"
+            android:paddingBottom="80dp"
+            android:scrollbars="vertical"
+            android:nestedScrollingEnabled="true"
+            android:overScrollMode="always" />
+
+        <TextView
+            android:id="@+id/tvEmptyFound"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="No found items posted yet.\nHelp someone by reporting what you found!"
+            android:textColor="#8E8A82"
+            android:textSize="16sp"
+            android:lineSpacingMultiplier="1.4"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnAddFound"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_circle_button"
+        android:src="@drawable/ic_add"
+        android:elevation="6dp"
+        android:contentDescription="Add Found Item" />
+
+</FrameLayout>
