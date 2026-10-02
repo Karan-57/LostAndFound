@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Locale;
+
 public class JoinCampusActivity extends AppCompatActivity {
 
     private EditText etCampusCode;
@@ -33,13 +35,11 @@ public class JoinCampusActivity extends AppCompatActivity {
         btnQuickStanford = findViewById(R.id.btnQuickStanford);
         btnQuickHarvard = findViewById(R.id.btnQuickHarvard);
 
-        // Quick fills for testing demo campuses
         btnQuickStanford.setOnClickListener(v -> etCampusCode.setText("STAN2026"));
         btnQuickHarvard.setOnClickListener(v -> etCampusCode.setText("HARV2026"));
 
-        // Join existing campus
         btnJoinCampus.setOnClickListener(v -> {
-            String code = etCampusCode.getText().toString().trim().toUpperCase();
+            String code = etCampusCode.getText().toString().trim().toUpperCase(Locale.ROOT);
             if (code.isEmpty()) {
                 etCampusCode.setError("Please enter a campus code");
                 etCampusCode.requestFocus();
@@ -48,7 +48,6 @@ public class JoinCampusActivity extends AppCompatActivity {
 
             DatabaseHelper dbHelper = DatabaseHelper.getInstance(this);
             if (!dbHelper.campusExists(code)) {
-                // Allow join anyway or inform user, but also auto-register code
                 dbHelper.createCampus(code, code + " Campus");
             }
 
@@ -60,10 +59,9 @@ public class JoinCampusActivity extends AppCompatActivity {
             finish();
         });
 
-        // Create new campus circle
         btnCreateCampus.setOnClickListener(v -> {
             String name = etNewCampusName.getText().toString().trim();
-            String code = etNewCampusCode.getText().toString().trim().toUpperCase();
+            String code = etNewCampusCode.getText().toString().trim().toUpperCase(Locale.ROOT);
 
             if (name.isEmpty()) {
                 etNewCampusName.setError("Enter campus name");

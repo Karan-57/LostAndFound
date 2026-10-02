@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -63,10 +64,10 @@ public class SearchActivity extends AppCompatActivity {
         if (query.isEmpty()) {
             filteredList.addAll(allItemsList);
         } else {
-            String lowerQuery = query.toLowerCase();
+            String lowerQuery = query.toLowerCase(Locale.ROOT);
             for (ItemModel item : allItemsList) {
-                if (item.getDescription().toLowerCase().contains(lowerQuery)
-                        || item.getLocation().toLowerCase().contains(lowerQuery)) {
+                if (item.getDescription().toLowerCase(Locale.ROOT).contains(lowerQuery)
+                        || item.getLocation().toLowerCase(Locale.ROOT).contains(lowerQuery)) {
                     filteredList.add(item);
                 }
             }

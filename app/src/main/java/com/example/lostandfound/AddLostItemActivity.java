@@ -1,11 +1,9 @@
 package com.example.lostandfound;
 
 import android.app.DatePickerDialog;
-import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +16,9 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.IOException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -72,7 +72,6 @@ public class AddLostItemActivity extends AppCompatActivity {
         etLostDate = findViewById(R.id.etLostDate);
         etLostPhone = findViewById(R.id.etLostPhone);
 
-        // Pre-fill email/name if logged in
         String loggedEmail = SessionManager.getUserEmail(this);
         if (!loggedEmail.isEmpty()) {
             etLostUserEmail.setText(loggedEmail);
@@ -140,7 +139,7 @@ public class AddLostItemActivity extends AppCompatActivity {
                 userName = "Student";
             }
 
-            String userEmail = etLostUserEmail.getText().toString().trim().toLowerCase();
+            String userEmail = etLostUserEmail.getText().toString().trim().toLowerCase(Locale.ROOT);
             if (userEmail.isEmpty()) {
                 userEmail = SessionManager.getUserEmail(this);
             }
@@ -163,12 +162,11 @@ public class AddLostItemActivity extends AppCompatActivity {
         etLostDate.setText(sdf.format(calendar.getTime()));
     }
 
-    /** Copies a selected image URI into private app internal storage so it is permanently accessible. */
     private Uri copyUriToInternalStorage(Uri uri, String prefix) {
         try {
-            java.io.File file = new java.io.File(getFilesDir(), prefix + System.currentTimeMillis() + ".jpg");
-            try (java.io.InputStream in = getContentResolver().openInputStream(uri);
-                 java.io.OutputStream out = new java.io.FileOutputStream(file)) {
+            File file = new File(getFilesDir(), prefix + System.currentTimeMillis() + ".jpg");
+            try (InputStream in = getContentResolver().openInputStream(uri);
+                 OutputStream out = new FileOutputStream(file)) {
                 if (in == null) return null;
                 byte[] buffer = new byte[8192];
                 int read;
@@ -179,22 +177,19 @@ public class AddLostItemActivity extends AppCompatActivity {
             }
             return Uri.fromFile(file);
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
 
-    /** Saves a camera bitmap to app internal storage and returns its Uri. */
     private Uri saveBitmapToInternalStorage(Bitmap bitmap, String prefix) {
         try {
-            java.io.File file = new java.io.File(getFilesDir(), prefix + System.currentTimeMillis() + ".jpg");
-            try (java.io.OutputStream out = new java.io.FileOutputStream(file)) {
+            File file = new File(getFilesDir(), prefix + System.currentTimeMillis() + ".jpg");
+            try (OutputStream out = new FileOutputStream(file)) {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
                 out.flush();
             }
             return Uri.fromFile(file);
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }

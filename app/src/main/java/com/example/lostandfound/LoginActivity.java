@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (userName.isEmpty()) {
                     userName = "Test User";
                 }
+
                 SessionManager.setLoggedIn(this, true, email, userName);
 
                 Intent intent;

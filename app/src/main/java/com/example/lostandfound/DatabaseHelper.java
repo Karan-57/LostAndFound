@@ -9,23 +9,18 @@ import android.net.Uri;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-/**
- * Native SQLiteOpenHelper implementation for Campus Lost and Found.
- * Manages tables for campuses, users, and items, with seed data and transactions.
- */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "LostAndFoundNative.db";
     private static final int DATABASE_VERSION = 4;
 
-    // ── Table Campuses ────────────────────────────────────────────────────────
     public static final String TABLE_CAMPUSES = "campuses";
     public static final String COL_CAMPUS_ID = "id";
     public static final String COL_CAMPUS_CODE = "campus_code";
     public static final String COL_CAMPUS_NAME = "campus_name";
 
-    // ── Table Users ───────────────────────────────────────────────────────────
     public static final String TABLE_USERS = "users";
     public static final String COL_USER_ID = "id";
     public static final String COL_USER_NAME = "name";
@@ -34,7 +29,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_USER_PHONE = "phone";
     public static final String COL_USER_CAMPUS_CODE = "campus_code";
 
-    // ── Table Items ───────────────────────────────────────────────────────────
     public static final String TABLE_ITEMS = "items";
     public static final String COL_ITEM_ID = "id";
     public static final String COL_ITEM_CAMPUS = "campus_code";
@@ -104,18 +98,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // ── Seed Dummy Campuses, Users & Lost/Found Items with Images ──────────────
-
     private void seedInitialData(SQLiteDatabase db) {
         db.beginTransaction();
         try {
-            // 1. Campus 1: STANFORD (Code: STAN2026)
             insertCampusInternal(db, "STAN2026", "Stanford University");
-            // Dummy Users for Stanford
             insertUserInternal(db, "Alex Rivera", "alex@stanford.edu", "1234", "9876543210", "STAN2026");
             insertUserInternal(db, "Emma Watson", "emma@stanford.edu", "1234", "9876543211", "STAN2026");
 
-            // 2 Lost & 2 Found for Stanford (mapped to user's downloaded drawables)
             insertItemInternal(db, "STAN2026", "Alex Rivera", "alex@stanford.edu", "lost",
                     "android.resource://com.example.lostandfound/drawable/mackbook",
                     "Lost a space grey MacBook Pro 14 inch in a black sleeve near computer lab desks.",
@@ -136,13 +125,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "Found titanium Apple Watch with magnetic loop strap beside bench.",
                     "Main Quad Garden", "27 Sep 2026", "9876543211");
 
-            // 2. Campus 2: HARVARD (Code: HARV2026)
             insertCampusInternal(db, "HARV2026", "Harvard University");
-            // Dummy Users for Harvard
             insertUserInternal(db, "David Kim", "david@harvard.edu", "1234", "9123456780", "HARV2026");
             insertUserInternal(db, "Sophia Martinez", "sophia@harvard.edu", "1234", "9123456781", "HARV2026");
 
-            // 2 Lost & 2 Found for Harvard (mapped to user's downloaded drawables)
             insertItemInternal(db, "HARV2026", "David Kim", "david@harvard.edu", "lost",
                     "android.resource://com.example.lostandfound/drawable/wallet",
                     "Lost brown leather Fossil wallet containing Student ID & CharlieCard transit pass.",
@@ -163,10 +149,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "Found Casio FX-991CW scientific calculator on row 3 desk.",
                     "Sever Hall Room 102", "27 Sep 2026", "9123456781");
 
-            // Add default test user: test@test.com
             insertUserInternal(db, "Test User", "test@test.com", "test", "9998887770", "STAN2026");
 
-            // Add sample uploaded items for test@test.com so My Uploads immediately shows items
             insertItemInternal(db, "STAN2026", "Test User", "test@test.com", "lost",
                     "android.resource://com.example.lostandfound/drawable/bottle",
                     "Lost my blue insulated water bottle near the swimming pool locker room.",
@@ -193,7 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void insertUserInternal(SQLiteDatabase db, String name, String email, String password, String phone, String campusCode) {
         ContentValues cv = new ContentValues();
         cv.put(COL_USER_NAME, name);
-        cv.put(COL_USER_EMAIL, email.trim().toLowerCase());
+        cv.put(COL_USER_EMAIL, email.trim().toLowerCase(Locale.ROOT));
         cv.put(COL_USER_PASSWORD, password);
         cv.put(COL_USER_PHONE, phone);
         cv.put(COL_USER_CAMPUS_CODE, campusCode);
@@ -205,7 +189,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COL_ITEM_CAMPUS, campusCode);
         cv.put(COL_ITEM_USER_NAME, userName);
-        cv.put(COL_ITEM_USER_EMAIL, userEmail != null ? userEmail.trim().toLowerCase() : "");
+        cv.put(COL_ITEM_USER_EMAIL, userEmail != null ? userEmail.trim().toLowerCase(Locale.ROOT) : "");
         cv.put(COL_ITEM_TYPE, type);
         cv.put(COL_ITEM_IMAGE_URI, imageUri);
         cv.put(COL_ITEM_DESCRIPTION, description);
@@ -215,12 +199,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_ITEMS, null, cv);
     }
 
-    // ── Public Campus Creation & Check ────────────────────────────────────────
-
     public boolean createCampus(String code, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COL_CAMPUS_CODE, code.trim().toUpperCase());
+        cv.put(COL_CAMPUS_CODE, code.trim().toUpperCase(Locale.ROOT));
         cv.put(COL_CAMPUS_NAME, name.trim());
         long result = db.insertWithOnConflict(TABLE_CAMPUSES, null, cv, SQLiteDatabase.CONFLICT_IGNORE);
         return result != -1;
@@ -229,43 +211,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean campusExists(String code) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_CAMPUSES, new String[]{COL_CAMPUS_CODE},
-                COL_CAMPUS_CODE + " = ?", new String[]{code.trim().toUpperCase()},
+                COL_CAMPUS_CODE + " = ?", new String[]{code.trim().toUpperCase(Locale.ROOT)},
                 null, null, null);
+
         boolean exists = (cursor != null && cursor.getCount() > 0);
         if (cursor != null) cursor.close();
         return exists;
     }
 
-    public List<String[]> getAllCampuses() {
-        List<String[]> list = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_CAMPUSES, null, null, null, null, null, COL_CAMPUS_NAME + " ASC");
-        if (cursor != null) {
-            try {
-                if (cursor.moveToFirst()) {
-                    do {
-                        String code = cursor.getString(cursor.getColumnIndexOrThrow(COL_CAMPUS_CODE));
-                        String name = cursor.getString(cursor.getColumnIndexOrThrow(COL_CAMPUS_NAME));
-                        list.add(new String[]{code, name});
-                    } while (cursor.moveToNext());
-                }
-            } finally {
-                cursor.close();
-            }
-        }
-        return list;
-    }
-
-    // ── Public User Creation & Auth ───────────────────────────────────────────
-
     public long registerUser(String name, String email, String password, String phone, String campusCode) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COL_USER_NAME, name);
-        cv.put(COL_USER_EMAIL, email.trim().toLowerCase());
+        cv.put(COL_USER_EMAIL, email.trim().toLowerCase(Locale.ROOT));
         cv.put(COL_USER_PASSWORD, password);
         cv.put(COL_USER_PHONE, phone);
-        cv.put(COL_USER_CAMPUS_CODE, campusCode != null ? campusCode.trim().toUpperCase() : "");
+        cv.put(COL_USER_CAMPUS_CODE, campusCode != null ? campusCode.trim().toUpperCase(Locale.ROOT) : "");
         return db.insert(TABLE_USERS, null, cv);
     }
 
@@ -273,7 +234,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_USERS, null,
                 COL_USER_EMAIL + " = ? AND " + COL_USER_PASSWORD + " = ?",
-                new String[]{email.trim().toLowerCase(), password},
+                new String[]{email.trim().toLowerCase(Locale.ROOT), password},
                 null, null, null);
         boolean valid = (cursor != null && cursor.getCount() > 0);
         if (cursor != null) cursor.close();
@@ -283,7 +244,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String getUserNameByEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_USERS, new String[]{COL_USER_NAME},
-                COL_USER_EMAIL + " = ?", new String[]{email.trim().toLowerCase()},
+                COL_USER_EMAIL + " = ?", new String[]{email.trim().toLowerCase(Locale.ROOT)},
                 null, null, null);
         String name = "";
         if (cursor != null) {
@@ -295,8 +256,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return name;
     }
 
-    // ── Insert Item with Transaction ──────────────────────────────────────────
-
     public void insertItem(String campusCode, String userName, String userEmail, String type, String imageUri,
                            String description, String location, String date, String phone) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -305,7 +264,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(COL_ITEM_CAMPUS, campusCode);
             values.put(COL_ITEM_USER_NAME, userName);
-            values.put(COL_ITEM_USER_EMAIL, userEmail != null ? userEmail.trim().toLowerCase() : "");
+            values.put(COL_ITEM_USER_EMAIL, userEmail != null ? userEmail.trim().toLowerCase(Locale.ROOT) : "");
             values.put(COL_ITEM_TYPE, type);
             values.put(COL_ITEM_IMAGE_URI, imageUri);
             values.put(COL_ITEM_DESCRIPTION, description);
@@ -320,15 +279,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    // ── Delete Item by ID ─────────────────────────────────────────────────────
-
     public boolean deleteItem(int itemId) {
         SQLiteDatabase db = this.getWritableDatabase();
         int rows = db.delete(TABLE_ITEMS, COL_ITEM_ID + " = ?", new String[]{String.valueOf(itemId)});
         return rows > 0;
     }
-
-    // ── Cursor-based Item Queries ─────────────────────────────────────────────
 
     public List<ItemModel> getItemsByCampusAndType(String campusCode, String type) {
         List<ItemModel> list = new ArrayList<>();
@@ -374,9 +329,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    /**
-     * Query all items (lost and found) uploaded by a specific user email.
-     */
     public List<ItemModel> getItemsByUserEmail(String email) {
         List<ItemModel> list = new ArrayList<>();
         if (email == null || email.trim().isEmpty()) {
@@ -385,7 +337,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         String selection = COL_ITEM_USER_EMAIL + " = ?";
-        String[] selectionArgs = new String[]{email.trim().toLowerCase()};
+        String[] selectionArgs = new String[]{email.trim().toLowerCase(Locale.ROOT)};
 
         Cursor cursor = db.query(TABLE_ITEMS, null, selection, selectionArgs, null, null, COL_ITEM_ID + " DESC");
         if (cursor != null) {

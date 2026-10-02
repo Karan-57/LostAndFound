@@ -31,7 +31,6 @@
             android:lineSpacingMultiplier="1.2"
             android:layout_marginBottom="24dp" />
 
-        <!-- Quick Demo Chips / Badges for testing dummy campuses -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,7 +69,6 @@
 
         </LinearLayout>
 
-        <!-- Card: Join Campus -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -116,7 +114,6 @@
 
         </LinearLayout>
 
-        <!-- Card: Create New Campus -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

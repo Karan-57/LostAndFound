@@ -3,9 +3,8 @@ package com.example.lostandfound;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Manages the current logged-in user session in SharedPreferences.
- */
+import java.util.Locale;
+
 public class SessionManager {
 
     private static final String PREF_NAME = "UserSession";
@@ -24,7 +23,7 @@ public class SessionManager {
     public static void setLoggedIn(Context context, boolean loggedIn, String email, String name) {
         getPrefs(context).edit()
                 .putBoolean(KEY_IS_LOGGED_IN, loggedIn)
-                .putString(KEY_USER_EMAIL, email != null ? email.trim().toLowerCase() : "")
+                .putString(KEY_USER_EMAIL, email != null ? email.trim().toLowerCase(Locale.ROOT) : "")
                 .putString(KEY_USER_NAME, name != null ? name.trim() : "")
                 .apply();
     }

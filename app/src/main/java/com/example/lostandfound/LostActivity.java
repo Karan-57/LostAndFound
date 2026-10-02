@@ -6,13 +6,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
-
-import android.widget.PopupMenu;
 
 public class LostActivity extends AppCompatActivity {
 
@@ -35,7 +34,7 @@ public class LostActivity extends AppCompatActivity {
         lvLostItems = findViewById(R.id.lvLostItems);
         tvEmptyLost = findViewById(R.id.tvEmptyLost);
 
-        btnMenu.setOnClickListener(v -> showOverflowMenu(v));
+        btnMenu.setOnClickListener(this::showOverflowMenu);
 
         btnSearch.setOnClickListener(v -> {
             Intent intent = new Intent(LostActivity.this, SearchActivity.class);
@@ -50,7 +49,6 @@ public class LostActivity extends AppCompatActivity {
         tabFound.setOnClickListener(v -> {
             Intent intent = new Intent(LostActivity.this, FoundActivity.class);
             startActivity(intent);
-            overridePendingTransition(0, 0);
             finish();
         });
     }

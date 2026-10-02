@@ -5,7 +5,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
@@ -45,7 +47,7 @@ public class MyUploadsActivity extends AppCompatActivity {
     private void loadMyUploads() {
         String email = SessionManager.getUserEmail(this);
         if (email.isEmpty()) {
-            email = "test@test.com"; // Default to logged in email or fallback
+            email = "test@test.com";
         }
 
         tvMyUploadsUserEmail.setText("Account: " + email);
@@ -64,16 +66,16 @@ public class MyUploadsActivity extends AppCompatActivity {
             lvMyUploads.setVisibility(View.VISIBLE);
             adapter = new ItemAdapter(this, myItemsList);
             adapter.setShowResolveButton(true, item -> {
-                new androidx.appcompat.app.AlertDialog.Builder(this)
+                new AlertDialog.Builder(this)
                         .setTitle("Mark as Found / Resolved")
                         .setMessage("Are you sure this item has been resolved? It will be permanently removed from all listings.")
                         .setPositiveButton("Mark Resolved", (dialog, which) -> {
                             boolean deleted = dbHelper.deleteItem(item.getId());
                             if (deleted) {
-                                android.widget.Toast.makeText(this, "Item marked as resolved and removed!", android.widget.Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Item marked as resolved and removed!", Toast.LENGTH_SHORT).show();
                                 loadMyUploads();
                             } else {
-                                android.widget.Toast.makeText(this, "Failed to remove item", android.widget.Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Failed to remove item", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton("Cancel", null)

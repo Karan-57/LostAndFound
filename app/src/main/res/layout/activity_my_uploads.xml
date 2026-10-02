@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:background="#EBE9E1">
 
-    <!-- Top Action Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +36,6 @@
 
     </LinearLayout>
 
-    <!-- User Header Banner -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,7 +67,6 @@
 
     </LinearLayout>
 
-    <!-- List of uploaded items -->
     <ListView
         android:id="@+id/lvMyUploads"
         android:layout_width="match_parent"
@@ -81,7 +78,6 @@
         android:clipToPadding="false"
         android:scrollbars="vertical" />
 
-    <!-- Empty State -->
     <TextView
         android:id="@+id/tvMyUploadsEmpty"
         android:layout_width="match_parent"

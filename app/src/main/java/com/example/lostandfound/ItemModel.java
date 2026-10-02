@@ -3,18 +3,17 @@ package com.example.lostandfound;
 import android.net.Uri;
 
 public class ItemModel {
-    private int id;             // database record ID
+    private int id;
     private int imageResId;
-    private Uri imageUri;       // user-picked image (gallery / camera)
+    private Uri imageUri;
     private String description;
     private String location;
     private String date;
-    private String phone;       // contact phone number
-    private String postedBy;    // user who posted the item
-    private String userEmail;   // user email for identification
-    private String type;        // "lost" or "found"
+    private String phone;
+    private String postedBy;
+    private String userEmail;
+    private String type;
 
-    /** Constructor for user-submitted items with a picked image URI. */
     public ItemModel(Uri imageUri, String description, String location, String date, String phone) {
         this.imageResId = 0;
         this.imageUri = imageUri;
@@ -24,7 +23,6 @@ public class ItemModel {
         this.phone = phone;
     }
 
-    /** Constructor for items using a drawable resource ID. */
     public ItemModel(int imageResId, String description, String location, String date, String phone) {
         this.imageResId = imageResId;
         this.imageUri = null;

@@ -124,13 +124,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:clipToPadding="false"
             android:divider="@android:color/transparent"
             android:dividerHeight="14dp"
-            android:clipToPadding="false"
-            android:paddingBottom="80dp"
-            android:scrollbars="vertical"
             android:nestedScrollingEnabled="true"
-            android:overScrollMode="always" />
+            android:overScrollMode="always"
+            android:paddingBottom="80dp"
+            android:scrollbars="vertical" />
 
         <TextView
             android:id="@+id/tvEmptyLost"

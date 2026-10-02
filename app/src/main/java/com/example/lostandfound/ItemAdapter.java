@@ -81,7 +81,6 @@ public class ItemAdapter extends BaseAdapter {
             holder.tvCardUser.setText("Posted by: Student");
         }
 
-        // Image
         boolean imageSet = false;
         if (item.getImageUri() != null) {
             try {
@@ -101,7 +100,6 @@ public class ItemAdapter extends BaseAdapter {
             }
         }
 
-        // Resolve/Tick button (for My Uploads)
         if (showResolveButton) {
             holder.btnCardResolve.setVisibility(View.VISIBLE);
             holder.btnCardResolve.setOnClickListener(v -> {
@@ -113,7 +111,6 @@ public class ItemAdapter extends BaseAdapter {
             holder.btnCardResolve.setVisibility(View.GONE);
         }
 
-        // Call button — show only when a phone number is available
         String phone = item.getPhone();
         if (phone != null && !phone.isEmpty()) {
             holder.btnCardCall.setVisibility(View.VISIBLE);

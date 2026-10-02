@@ -3,9 +3,8 @@ package com.example.lostandfound;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Manages the current joined campus code in SharedPreferences.
- */
+import java.util.Locale;
+
 public class CampusManager {
 
     private static final String PREF_NAME = "CampusSession";
@@ -25,7 +24,7 @@ public class CampusManager {
     }
 
     public static void setJoinedCampusCode(Context context, String campusCode) {
-        getPrefs(context).edit().putString(KEY_CAMPUS_CODE, campusCode.trim().toUpperCase()).apply();
+        getPrefs(context).edit().putString(KEY_CAMPUS_CODE, campusCode.trim().toUpperCase(Locale.ROOT)).apply();
     }
 
     public static void leaveCampus(Context context) {
